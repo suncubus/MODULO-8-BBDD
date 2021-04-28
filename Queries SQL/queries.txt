@@ -1,0 +1,28 @@
+EJERCICIO 1:Cantidad de registros de la tabla de vuelos:
+
+    SELECT COUNT(*) FROM `flights`
+
+EJERCICIO 2:Retraso promedio de salida y llegada según el aeropuerto origen.
+
+    SELECT Origin, avg(ArrDelay) AS prom_arribades, avg(DepDelay) AS prom_sortides FROM `Flights` GROUP BY Origin ORDER BY Origin;
+ 
+EJERCICIO 3: Retraso promedio de llegada de los vuelos, por meses, años y según el aeropuerto origen.
+
+    SELECT Origin, colYear, colMonth, avg(ArrDelay) AS prom_arribades FROM `Flights` GROUP BY Origin, colYear, colMonth ORDER BY Origin, colYear, colMonth;
+
+EJERCICIO 4: Retraso promedio de llegada de los vuelos, por meses, años y según el aeropuerto origen (misma consulta que antes y con el mismo orden). Pero además, ahora quieren que en vez del código del aeropuerto se muestra el nombre de la ciudad.
+
+    SELECT city, colYear, colMonth, avg(ArrDelay) AS prom_arribades FROM `USAirports`, `Flights` WHERE Origin = IATA GROUP BY city, colYear, colMonth ORDER BY city, colYear, colMonth;
+
+EJERCICIO 5: Las compañías con más vuelos cancelados, por meses y año. Además, deben estar ordenadas de forma que las compañías con más cancelaciones aparezcan las primeras.
+
+    SELECT UniqueCarrier, colYear, colMonth, count(*) AS total_cancelled FROM `Flights` WHERE Cancelled = 1 GROUP BY UniqueCarrier, colYear, colMonth ORDER BY total_cancelled DESC, colYear DESC, colMonth DESC;
+
+EJERCICIO 6: El identificador de los 10 aviones que más distancia han recorrido haciendo vuelos.
+
+    SELECT TailNum, sum(Distance) AS totalDistance FROM `Flights` WHERE TailNum  GROUP BY TailNum ORDER BY totalDistance DESC LIMIT 10;
+
+EJERCICIO 7: Compañías con su retraso promedio sólo de aquellas A las que sus vuelos llegan a su destino con un retraso promedio mayor de 10 minutos.
+    
+    SELECT UniqueCarrier, AVG(DepDelay) AS avgDelay FROM `Flights` GROUP BY UniqueCarrier HAVING AVG(DepDelay) > 10 ORDER BY avgDelay DESC;
+
