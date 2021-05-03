@@ -12,11 +12,11 @@ EJERCICIO 3: Retraso promedio de llegada de los vuelos, por meses, años y segú
 
 EJERCICIO 4: Retraso promedio de llegada de los vuelos, por meses, años y según el aeropuerto origen (misma consulta que antes y con el mismo orden). Pero además, ahora quieren que en vez del código del aeropuerto se muestra el nombre de la ciudad.
 
-    SELECT city, colYear, colMonth, avg(ArrDelay) AS prom_arribades FROM `USAirports`, `Flights` WHERE Origin = IATA GROUP BY city, colYear, colMonth ORDER BY city, colYear, colMonth;
+    SELECT city, colyear, colmonth, AVG(ArrDelay) AS prom_arribades FROM flights INNER JOIN usairports ON flights.origin = usairports.iata GROUP BY city , colmonth , colYear ORDER BY city , colyear , colMonth
 
 EJERCICIO 5: Las compañías con más vuelos cancelados, por meses y año. Además, deben estar ordenadas de forma que las compañías con más cancelaciones aparezcan las primeras.
 
-    SELECT UniqueCarrier, colYear, colMonth, count(*) AS total_cancelled FROM `Flights` WHERE Cancelled = 1 GROUP BY UniqueCarrier, colYear, colMonth ORDER BY total_cancelled DESC, colYear DESC, colMonth DESC;
+    SELECT UniqueCarrier, colYear, colMonth, SUM(Cancelled) AS cancelled from flights GROUP BY UniqueCarrier, colYear, colMonth HAVING Cancelled = 1 ORDER BY UniqueCarrier, colYear, colMonth
 
 EJERCICIO 6: El identificador de los 10 aviones que más distancia han recorrido haciendo vuelos.
 
